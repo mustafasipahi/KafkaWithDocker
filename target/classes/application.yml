@@ -1,0 +1,27 @@
+kafka:
+  group-id: test-group
+  key:
+    testKey: test-key
+  topic:
+    testTopic: test-topic
+  address: localhost:9092
+
+
+spring:
+  kafka:
+    bootstrap-servers: ${kafka_bootstrap_servers:localhost:9092}
+    consumer-enabled: ${consumer-enabled:true}
+    consumer:
+      auto-offset-reset: earliest
+      group-id: test-group
+      client-id: test-client-id
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.kafka.model.KafkaMessage
+      max-poll-records: 1
+      fetch-max-wait: 36000
+      enable-auto-commit: false
+    producer:
+      client-id: test-client-id
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.kafka.model.KafkaMessage
+      retries: 2
